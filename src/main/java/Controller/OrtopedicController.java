@@ -24,7 +24,7 @@ public class OrtopedicController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Ortopedic> getOrtesis(@PathVariable("id") int id){
+    public Optional<Ortopedic> getOrtopedic(@PathVariable("id") int id){
         return ortopedicService.getOrtopedic(id);
     }
 

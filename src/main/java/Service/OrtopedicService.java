@@ -27,8 +27,8 @@ public class OrtopedicService {
             if(ortopedic.getId() == null){
                 return ortopedicRepository.save(ortopedic);
             } else{
-                Optional<Ortopedic> ortesisEncontrado = ortopedicRepository.getOrtopedic(ortopedic.getId());
-                if(ortesisEncontrado.isEmpty()){
+                Optional<Ortopedic> ortopedicEncontrado = ortopedicRepository.getOrtopedic(ortopedic.getId());
+                if(ortopedicEncontrado.isEmpty()){
                     return ortopedicRepository.save(ortopedic);
                 } else {
                     return ortopedic;
