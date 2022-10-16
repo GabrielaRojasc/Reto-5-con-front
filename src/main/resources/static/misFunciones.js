@@ -1,10 +1,10 @@
-function traerDatosOrtesis(){
+function traerDatosOrtopedic(){
     $.ajax({
-        url: 'https://gbee5718478f365-reto1ciclo3.adb.us-phoenix-1.oraclecloudapps.com/ords/admin/orthesis/orthesis',
+        url: 'http://localhost:8090',
         type: 'GET',
         dataType: 'json',
         success: function(respuesta){
-            pintarDatosGeneral(respuesta.items, "name", "orthesis");
+            pintarDatosGeneral(respuesta.items, "name", "ortopedic");
         },
         error: function(respuesta, xhr){
             alert("Error de la peticion");
@@ -14,7 +14,7 @@ function traerDatosOrtesis(){
 
 function traerDatosClientes(){
     $.ajax({
-        url: 'https://gbee5718478f365-reto1ciclo3.adb.us-phoenix-1.oraclecloudapps.com/ords/admin/client/client',
+        url: 'http://localhost:8090',
         type: 'GET',
         dataType: 'json',
         success: function(respuesta){
@@ -28,7 +28,7 @@ function traerDatosClientes(){
 
 function traerDatosMensajes(){
     $.ajax({
-        url: 'https://gbee5718478f365-reto1ciclo3.adb.us-phoenix-1.oraclecloudapps.com/ords/admin/message/message',
+        url: 'http://localhost:8090',
         type: 'GET',
         dataType: 'json',
         success: function(respuesta){
@@ -40,7 +40,7 @@ function traerDatosMensajes(){
     });
 }
 
-function guardarOrtesis(){
+function guardarOrtopedic(){
     let datosPorMandar = {
         'id': $("#id").val(),
         'brand': $("#brand").val(),
@@ -50,18 +50,21 @@ function guardarOrtesis(){
     };
 
     $.ajax({
-        url: 'https://gbee5718478f365-reto1ciclo3.adb.us-phoenix-1.oraclecloudapps.com/ords/admin/orthesis/orthesis',
+        url: 'http://localhost:8090',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(datosPorMandar),
         success: function(respuesta){
-            pintarDatosGeneral(respuesta.items, "name", "orthesis");
+            alert("El producto ha sido agregado con exito");
+            traerDatosOrtopedic();
+
         },
         error: function(respuesta, xhr){
             alert("Error de la peticion");
         }
     });
 }
+
 
 function guardarIdyTipo(id, tipo){
     sessionStorage.setItem.setItem('id', id);
@@ -74,7 +77,7 @@ function mostrarDetalle(){
     let tipo = sessionStorage.getItem('tipo');
 
     $.ajax({
-        url: 'https://gbee5718478f365-reto1ciclo3.adb.us-phoenix-1.oraclecloudapps.com/ords/admin/'+tipo+'/'+tipo+'/'+id,
+        url: 'http://localhost:8090/'+tipo+'/'+tipo+'/'+id,
         type: 'GET',
         dataType: 'json',
         success: function(respuesta){
@@ -92,6 +95,7 @@ function pintarDatosGeneral(datos, titulo, tipoTabla){
     htmlParaInsertar+="<tr>";
     htmlParaInsertar+="<th>Titulo</th>"
     htmlParaInsertar+="</tr>";
+
 
     for(let i=0;i<datos.length;i++){
         htmlParaInsertar+="<tr>";
@@ -127,15 +131,18 @@ function pintarEntradasDetalle(datos){
 }
 
 function actualizarDetalles(){
-    let id = sessionStorage.getItem('id');
     let tipo = sessionStorage.getItem('tipo');
 
-    if(tipo=="orthesis"){actualizarOrtesis();}
-    else if(tipo=="message"){actualizarMensaje();}
-    else if(tipo=="client"){actualizarCliente();}
+    if(tipo=="ortopedic"){
+        actualizarOrtopedic();
+    } else if(tipo=="message"){
+        actualizarMensaje();
+    } else if(tipo=="client"){
+        actualizarCliente();
+    }
 }
 
-function actualizarOrtesis(){
+function actualizarOrtopedic(){
     let datosPorMandar = {
         'id': $("#id").val(),
         'brand': $("#brand").val(),
@@ -145,7 +152,7 @@ function actualizarOrtesis(){
     };
 
     $.ajax({
-        url: 'https://gbee5718478f365-reto1ciclo3.adb.us-phoenix-1.oraclecloudapps.com/ords/admin/orthesis/orthesis',
+        url: 'http://localhost:8090',
         type: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify(datosPorMandar),
@@ -166,7 +173,7 @@ function actualizarMensaje(){
     };
 
     $.ajax({
-        url: 'https://gbee5718478f365-reto1ciclo3.adb.us-phoenix-1.oraclecloudapps.com/ords/admin/message/message',
+        url: 'http://localhost:8090',
         type: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify(datosPorMandar),
@@ -181,6 +188,28 @@ function actualizarMensaje(){
 }
 
 function actualizarCliente(){
+    let datosPorMandar = {
+        'id': $("#id").val(),
+        'name': $("#name").val(),
+        'email': $("#emaill").val(),
+        'name': $("#name").val(),
+        'age': $("age").val()
+
+    };
+    $.ajax({
+        url: 'http://localhost:8090',
+        type: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(datosPorMandar),
+        success: function(respuesta){
+            alert("El producto ha sido agregado con exito");
+            mostrarDetalle();
+        },
+        error: function(respuesta, xhr){
+            alert("Error de la peticion");
+        }
+    });
+
 
 }
 
@@ -192,13 +221,13 @@ function borrarDetalle(){
     }
 
     $.ajax({
-        url: 'https://gbee5718478f365-reto1ciclo3.adb.us-phoenix-1.oraclecloudapps.com/ords/admin/'+tipo+'/'+tipo,
+        url: 'http://localhost:8090'+tipo+'/'+tipo,
         type: 'DELETE',
         contentType: 'application/json',
         data: JSON.stringify(datosPorMandar),
         success: function(respuesta){
             alert("El elemento ha sido eliminado");
-            location.href='index.html';
+            location.href='homePage.html';
         },
         error: function(respuesta, xhr){
             alert("Error de la peticion");

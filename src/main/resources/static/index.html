@@ -2,24 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="misFunciones.js"></script>
-    <title>Document</title>
+    <link rel=" stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="webjars/bootstrap/js/bootstrap.min.js"></script>
+
+    <title>Ortopedic 4.0</title>
 </head>
 <body>
-<h1>Reto 2</h1>
-<ul>
-    <li>
-        <a href="ortesis.html">Ver Órtesis</a>
-    </li>
-    <li>
-        <a href="clientes.html">Ver Clientes</a>
-    </li>
-    <li>
-        <a href="mensajes.html">Ver Mensajes</a>
-    </li>
-</ul>
-
+<h1>Bienvenido a Ortopedic 4.0</h1>
+<div class="container unauthenticated">
+    Para iniciar sesión haz click <a href="/oauth2/authorization/github">aquí</a>
+</div>
+<div class= "container authenticated" style="display: none">
+    Haz sido autenticado : <span id="usuario"></span>
+    <button onclick="location.href='homePage.html';">Continuar</button>
+</div>
 </body>
+<script> type= "text/javascript">
+    $.get("/user", function (data){
+        $("#usuario").html(data.name);
+        $(".unauthenticated").hide();
+        $(".authenticated").show();
+    });
+
+</script>
 </html>

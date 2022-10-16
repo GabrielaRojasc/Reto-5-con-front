@@ -29,7 +29,7 @@ public class CategoryService {
                 if(categoryEncontrado.isEmpty()){
                     return categoryRepository.save(category);
                 } else {
-                return category;
+                    return category;
                 }
             }
         }
@@ -57,7 +57,7 @@ public class CategoryService {
         return category;
     }
 
-    public boolean deleteCategory(int id){
+    public boolean delete(int id){
         Boolean resultado = getCategory(id).map(categoryPorEliminar ->{
             categoryRepository.delete(categoryPorEliminar);
             return true;
@@ -69,4 +69,6 @@ public class CategoryService {
 
         return(category.getName().length()<=45 && category.getDescription().length()<=250);
     }
+
+
 }

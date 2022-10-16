@@ -37,44 +37,44 @@ public class OrtopedicService {
         }
         return ortopedic;
     }
-        public Ortopedic update(Ortopedic ortopedic){
-            if(validarCampos(ortopedic)) {
-                if (ortopedic.getId() != null) {
-                    Optional<Ortopedic> ortopedicEncontrado = ortopedicRepository.getOrtopedic(ortopedic.getId());
-                    if (!ortopedicEncontrado.isEmpty()) {
-                        if (ortopedic.getName() != null) {
-                            ortopedicEncontrado.get().setName(ortopedic.getName());
-                        }
-                        if (ortopedic.getBrand() != null) {
-                            ortopedicEncontrado.get().setBrand(ortopedic.getBrand());
-                        }
-                        if (ortopedic.getYear() != null) {
-                            ortopedicEncontrado.get().setYear(ortopedic.getYear());
-                        }
-                        if (ortopedic.getDescription() != null) {
-                            ortopedicEncontrado.get().setDescription(ortopedic.getDescription());
-                        }
-                        if (ortopedic.getDescription() != null) {
-                            ortopedicEncontrado.get().setDescription(ortopedic.getDescription());
-                        }
-                        return ortopedicRepository.save(ortopedicEncontrado.get());
+    public Ortopedic update(Ortopedic ortopedic){
+        if(validarCampos(ortopedic)) {
+            if (ortopedic.getId() != null) {
+                Optional<Ortopedic> ortopedicEncontrado = ortopedicRepository.getOrtopedic(ortopedic.getId());
+                if (!ortopedicEncontrado.isEmpty()) {
+                    if (ortopedic.getName() != null) {
+                        ortopedicEncontrado.get().setName(ortopedic.getName());
                     }
+                    if (ortopedic.getBrand() != null) {
+                        ortopedicEncontrado.get().setBrand(ortopedic.getBrand());
+                    }
+                    if (ortopedic.getYear() != null) {
+                        ortopedicEncontrado.get().setYear(ortopedic.getYear());
+                    }
+                    if (ortopedic.getDescription() != null) {
+                        ortopedicEncontrado.get().setDescription(ortopedic.getDescription());
+                    }
+                    if (ortopedic.getCategory() != null) {
+                        ortopedicEncontrado.get().setCategory(ortopedic.getCategory());
+                    }
+                    return ortopedicRepository.save(ortopedicEncontrado.get());
                 }
-                return ortopedic;
-                }
+            }
             return ortopedic;
-            }
+        }
+        return ortopedic;
+    }
 
-            public boolean deleteOrtopedic(int id){
-                Boolean resultado = getOrtopedic(id).map(ortopedicPorEliminar ->{
-                    ortopedicRepository.delete(ortopedicPorEliminar);
-                    return true;
-                }) .orElse(false);
-                return resultado;
-            }
-            public boolean validarCampos(Ortopedic ortopedic){
-                return (ortopedic.getBrand().length()<=45 && ortopedic.getName().length()<=45 &&
-                  String.valueOf(ortopedic.getYear()).length()==4 && ortopedic.getDescription().length() <= 250);
+    public boolean delete(int id){
+        Boolean resultado = getOrtopedic(id).map(ortopedicPorEliminar ->{
+            ortopedicRepository.delete(ortopedicPorEliminar);
+            return true;
+        }) .orElse(false);
+        return resultado;
+    }
+    public boolean validarCampos(Ortopedic ortopedic){
+        return (ortopedic.getBrand().length()<=45 && ortopedic.getName().length()<=45 &&
+                String.valueOf(ortopedic.getYear()).length()==4 && ortopedic.getDescription().length() <= 250);
     }
 
 }

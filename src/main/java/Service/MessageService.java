@@ -20,7 +20,7 @@ public class MessageService {
     }
 
     public Optional<Message> getMessage(int id){
-        return messageRepository.getMessages(id);
+        return messageRepository.getMessage(id);
     }
 
 
@@ -29,7 +29,7 @@ public class MessageService {
             if (message.getIdMessage() == null) {
                 return messageRepository.save(message);
             } else {
-                Optional<Message> messageEncontrado = getMessage(message.getIdMessage());
+                Optional<Message> messageEncontrado = messageRepository.getMessage(message.getIdMessage());
                 if (messageEncontrado.isEmpty()) {
                     return messageRepository.save(message);
                 } else {
@@ -43,21 +43,27 @@ public class MessageService {
     public Message update(Message message){
         if(validarCampos(message)) {
             if (message.getIdMessage() != null) {
-                Optional<Message> messageEncontrado = getMessage(message.getIdMessage());
+                Optional<Message> messageEncontrado = messageRepository.getMessage(message.getIdMessage());
                 if (!messageEncontrado.isEmpty()) {
                     if (message.getMessageText() != null) {
                         messageEncontrado.get().setMessageText(message.getMessageText());
                     }
                     return messageRepository.save(messageEncontrado.get());
-
                 }
+
             }
+
             return message;
+
         }
         return message;
+
+
     }
 
-    public boolean messageCategory(int messageId){
+
+
+    public boolean delete(int messageId){
         Boolean resultado = getMessage(messageId).map(messagePorEliminar ->{
             messageRepository.delete(messagePorEliminar);
             return true;

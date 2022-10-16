@@ -60,7 +60,7 @@ public class ClientService {
         return client;
     }
 
-    public boolean deleteClient(int clientId){
+    public boolean delete(int clientId){
         Boolean resultado = getClient(clientId).map(clientPorEliminar ->{
             clientRepository.delete(clientPorEliminar);
             return true;
@@ -71,6 +71,6 @@ public class ClientService {
 
     public boolean validarCampos(Client client){
         return(client.getEmail().length() <= 45 && client.getPassword().length()<=45 && client.getName().length()<=250
-        && (client.getAge()>0 && client.getAge()<=120));
+                && (client.getAge()>0 && client.getAge()<=120));
     }
 }

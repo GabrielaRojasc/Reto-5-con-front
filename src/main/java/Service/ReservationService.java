@@ -55,7 +55,7 @@ public class ReservationService {
         return reservation;
     }
 
-    public boolean deleteReservation(int reservationId){
+    public boolean delete(int reservationId){
         Boolean resultado = getReservation(reservationId).map(reservationPorEliminar ->{
             reservationRepository.delete(reservationPorEliminar);
             return true;

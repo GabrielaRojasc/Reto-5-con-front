@@ -3,11 +3,12 @@ package Model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "reservation")
-public class Reservation {
+public class Reservation implements Serializable {
 
 
 
@@ -29,7 +30,7 @@ public class Reservation {
     @JsonIgnoreProperties({"reservations", "messages"})
     private Client client;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.REMOVE}, mappedBy = "reservation")
     @JsonIgnoreProperties("reservation")
     private Score score;
 

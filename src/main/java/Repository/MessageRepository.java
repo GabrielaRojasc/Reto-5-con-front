@@ -17,7 +17,7 @@ public class MessageRepository {
         return (List<Message>) messageCrudRepository.findAll();
     }
 
-    public Optional<Message> getMessages (int id){
+    public Optional<Message> getMessage (int id){
         return messageCrudRepository.findById(id);
     }
 
@@ -28,4 +28,6 @@ public class MessageRepository {
     public void delete(Message message){
         messageCrudRepository.delete(message);
     }
+
+
 }
